@@ -4,6 +4,7 @@ import wiringpi
 import re
 import sqlite3
 from os.path import isfile
+from os import environ
 import picamera
 
 
@@ -127,7 +128,7 @@ commands = {re.compile('/add *([0-9]+)'):add,
 authed_users = get_authed_users()
 
 
-bot = telepot.Bot('371709969:AAEWOo45Ks8A2nygbHmfXcLKOwJDzBptWJY')
+bot = telepot.Bot(environ['TELEPOT_TOKEN'])
 
 def handle(msg):
     chat_id = msg['chat']['id']
