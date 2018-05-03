@@ -4,12 +4,12 @@ import wiringpi
 import re
 import sqlite3
 from os.path import isfile
-from os import environ
+import os
 import picamera
 
 
 #=============== Database =====================
-database_file = 'aircon_controller.db'
+database_file = os.path.dirname(os.path.realpath(__file__)) + '/aircon_controller.db'
 
 if(not isfile(database_file)):
     # -- make database --
@@ -22,7 +22,7 @@ if(not isfile(database_file)):
     c.execute('CREATE TABLE users (user_id INTEGER PRIMARY KEY)')
 
     #add primary users
-    users = [(367583792,)]
+    users = [(573650341,)]
     c.executemany('INSERT INTO users VALUES (?)', users)
 
     #commit and close
@@ -128,7 +128,7 @@ commands = {re.compile('/add *([0-9]+)'):add,
 authed_users = get_authed_users()
 
 
-bot = telepot.Bot(environ['TELEPOT_TOKEN'])
+bot = telepot.Bot(os.environ['TELEPOT_TOKEN'])
 
 def handle(msg):
     chat_id = msg['chat']['id']
