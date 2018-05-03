@@ -10,4 +10,4 @@ open /etc/rc.local - ```sudo nano  /etc/rc.local``` and add
 
 at the bottom above ```exit 0```
 
-> **Note:** to generate a new telepot token use the ```/token``` command with the botfather
+> **Note:** to generate a new telepot token use the ```/revoke``` command with the botfather (to see the current one use ```/token```)
