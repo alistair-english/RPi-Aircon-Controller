@@ -64,8 +64,8 @@ wiringpi.pwmSetClock(192)
 wiringpi.pwmSetRange(2000)
 
 def toggle(match, chat_id):
-    wiringpi.pwmWrite(18, 100)
-    time.sleep(1)
+    wiringpi.pwmWrite(18, 50)
+    time.sleep(2)
     wiringpi.pwmWrite(18, 200)
     bot.sendMessage(chat_id, "Toggled")
     wiringpi.pwmWrite(18, 0)
@@ -111,7 +111,6 @@ def add(match, chat_id):
         else:
             msg = "Added ID: {0}".format(id_)
 
-        authed_users = get_authed_users()
     else:
         msg = "Please use /add follwed by a user id\ne.g. /add 1234567"
 
@@ -124,18 +123,14 @@ commands = {re.compile('/add *([0-9]+)'):add,
             re.compile('/picture'):sendPic}
 
 
-
-authed_users = get_authed_users()
-
-
 bot = telepot.Bot(os.environ['TELEPOT_TOKEN'])
 
 def handle(msg):
     chat_id = msg['chat']['id']
     command_text = msg['text']
 
-    if(chat_id not in authed_users):
-        bot.sendMessage(chat_id, "This is a private bot. To access, get a registered user to add your id with the command /add_id\nYour id is: {0}".format(chat_id))
+    if(chat_id not in get_authed_users()):
+        bot.sendMessage(chat_id, "This is a private bot. To access, get a registered user to add your id with the command /add \nYour id is: {0}".format(chat_id))
     else:
         not_reconised = True
         for command in commands:
@@ -156,3 +151,4 @@ print('ready')
 
 while 1:
     time.sleep(10)
+
